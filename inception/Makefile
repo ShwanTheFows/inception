@@ -13,8 +13,8 @@ stop:
 status:
 	docker-compose -f ./srcs/docker-compose.yml ps
 volumes:
-	mkdir -p /home/inception/data/DataBase
-	mkdir -p /home/inception/data/WordPress
+	mkdir -p /home/btaha/data/DataBase
+	mkdir -p /home/btaha/data/WordPress
 clear_volumes:
-	rm -rf /home/inception/data/DataBase/*
-	rm -rf /home/inception/data/WordPress/*
+	rm -rf /home/btaha/data/DataBase/*
+	rm -rf /home/btaha/data/WordPress/*
