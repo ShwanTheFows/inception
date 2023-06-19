@@ -6,4 +6,4 @@ RUN apt-get install -y nginx
 COPY /conf/nginx.conf /etc/nginx/sites-available/default
 COPY /tools/index.html /tmp/index.html
 
-CMD ["nginx", "-g ", "daemon off;"]
+CMD nginx -g "daemon off;"
