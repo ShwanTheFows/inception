@@ -1,0 +1,132 @@
+version: "3"
+
+volumes:
+  database:
+    name: DB
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/inception/data/DataBase
+      o: bind
+
+  wp_volume:
+    name: WordPress
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/inception/data/WordPress
+      o: bind
+
+networks:
+  mynetwork:
+    name: mynetwork
+
+services:
+  nginx:
+    container_name: nginx
+    build: ./requirements/nginx/
+    image: nginx:inception
+    volumes:
+      - wp_volume:/var/www/html
+    depends_on:
+      - wordpress
+    env_file:
+      - .env
+    ports:
+      - 443:443
+    networks:
+      - mynetwork
+    restart: always
+
+  mariadb:
+    container_name: mariadb
+    build: ./requirements/mariadb/
+    image: mariadb:inception
+    volumes:
+      - database:/var/lib/mysql
+    env_file:
+      - .env
+    networks:
+      - mynetwork
+    restart: always
+  
+  wordpress:
+    container_name: wordpress
+    build: ./requirements/wordpress/
+    image: wordpress:inception
+    volumes:
+      - wp_volume:/var/www/html
+    env_file:
+      - .env
+    depends_on:
+      - mariadb
+    networks:
+      - mynetwork
+    restart: always
+
+  ftp:
+    container_name: ftp
+    build: ./requirements/bonus/ftp/
+    image: ftp:inception
+    volumes:
+      - wp_volume:/home/$FTP_USER/ftp/upload
+    env_file:
+      - .env
+    ports:
+      - "20:20"
+      - "21:21"
+      - "10000-10100:10000-10100"
+    depends_on:
+      - wordpress
+    networks:
+      - mynetwork
+    restart: always
+
+  adminer:
+    container_name: adminer
+    build: ./requirements/bonus/adminer/
+    image: adminer:inception
+    ports:
+      - 900:440
+    depends_on:
+      - mariadb
+    networks:
+      - mynetwork
+    restart: always
+
+  redis:
+    container_name: redis
+    build: ./requirements/bonus/redis/
+    image: redis:inception
+    volumes:
+      - wp_volume:/var/www/html
+    depends_on:
+      - wordpress
+    networks:
+      - mynetwork
+    restart: always
+  
+  cadvisor:
+    container_name: cadvisor
+    build: ./requirements/bonus/cadvisor/
+    image: cadvisor:inception
+    networks:
+      - mynetwork
+    ports:
+      - "8080:8080"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+    restart: always
+
+  website:
+    build: ./requirements/bonus/static-website/
+    image: website:inception
+    networks:
+      - mynetwork
+    ports:
+      - 80:80
+    restart: always
