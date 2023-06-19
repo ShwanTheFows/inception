@@ -123,6 +123,7 @@ services:
     restart: always
 
   website:
+    container_name: static-website
     build: ./requirements/bonus/static-website/
     image: website:inception
     networks:
