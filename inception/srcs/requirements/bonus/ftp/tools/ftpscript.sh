@@ -12,7 +12,7 @@ chmod a-w /home/$FTP_USER/ftp
 mkdir /home/$FTP_USER/ftp/upload
 chown $FTP_USER:$FTP_USER /home/$FTP_USER/ftp/upload
 
-echo $FTP_USER | tee -a /etc/vsftpd.userlist
+echo $FTP_USER >> /etc/vsftpd.userlist
 
 service vsftpd stop
 
