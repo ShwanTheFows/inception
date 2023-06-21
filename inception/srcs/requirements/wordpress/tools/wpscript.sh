@@ -3,8 +3,6 @@
 mkdir -p /var/www/html
 cd /var/www/html
 
-chown -R www-data:www-data /var/www/html/
-
 curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 
 chmod +x wp-cli.phar
@@ -31,5 +29,7 @@ wp config set WP_CACHE 'true' --allow-root
 wp redis enable --allow-root
 
 mkdir /run/php
+
+chown -R www-data:www-data /var/www/html/
 
 /usr/sbin/php-fpm7.3 -F
