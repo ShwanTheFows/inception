@@ -122,10 +122,10 @@ services:
       - /dev/disk/:/dev/disk:ro
     restart: always
 
-  website:
+  static-website:
     container_name: static-website
     build: ./requirements/bonus/static-website/
-    image: website:inception
+    image: static-website:inception
     networks:
       - mynetwork
     ports:
