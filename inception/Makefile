@@ -1,6 +1,6 @@
 all: up
 
-up:
+up: create_volumes
 	docker-compose -f ./srcs/docker-compose.yml up
 start:
 	docker-compose -f ./srcs/docker-compose.yml start
@@ -20,3 +20,6 @@ clear_volumes:
 	sudo rm -rf /home/btaha/data/WordPress/*
 rmi:
 	docker rmi $$(docker images -q)
+clean: down rmi
+fclean: clear_volumes down rmi
+reboot: clean up
