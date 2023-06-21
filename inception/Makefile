@@ -13,8 +13,10 @@ stop:
 status:
 	docker-compose -f ./srcs/docker-compose.yml ps
 create_volumes:
-	sudo mkdir -p /home/btaha/data/DataBase
-	sudo mkdir -p /home/btaha/data/WordPress
+	mkdir -p /home/btaha/data/DataBase
+	mkdir -p /home/btaha/data/WordPress
 clear_volumes:
 	sudo rm -rf /home/btaha/data/DataBase/*
 	sudo rm -rf /home/btaha/data/WordPress/*
+rmi:
+	docker rmi $$(docker images -q)
