@@ -1,6 +1,6 @@
 all: up
 
-up: volumes
+up:
 	docker-compose -f ./srcs/docker-compose.yml up
 start:
 	docker-compose -f ./srcs/docker-compose.yml start
@@ -12,7 +12,7 @@ stop:
 	docker-compose -f ./srcs/docker-compose.yml stop
 status:
 	docker-compose -f ./srcs/docker-compose.yml ps
-volumes:
+create_volumes:
 	sudo mkdir -p /home/btaha/data/DataBase
 	sudo mkdir -p /home/btaha/data/WordPress
 clear_volumes:
