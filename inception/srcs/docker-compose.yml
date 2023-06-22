@@ -6,7 +6,7 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /home/btaha/data/DataBase
+      device: /home/$USER/data/DataBase
       o: bind
 
   wp_volume:
@@ -14,7 +14,7 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /home/btaha/data/WordPress
+      device: /home/$USER/data/WordPress
       o: bind
 
 networks:
