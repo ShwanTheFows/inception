@@ -22,12 +22,12 @@ status:
 	docker-compose -f ./srcs/docker-compose.yml ps
 
 create_volumes:
-	mkdir -p /home/btaha/data/DataBase
-	mkdir -p /home/btaha/data/WordPress
+	mkdir -p /home/$$USER/data/DataBase
+	mkdir -p /home/$$USER/data/WordPress
 
 clear_volumes:
-	sudo rm -rf /home/btaha/data/DataBase/*
-	sudo rm -rf /home/btaha/data/WordPress/*
+	sudo rm -rf /home/$$USER/data/DataBase/*
+	sudo rm -rf /home/$$USER/data/WordPress/*
 
 rmi:
 	docker rmi $$(docker images -q)
